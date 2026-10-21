@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreelanceFlow — Invoices paid in XLM, split for good</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ======================= NAV ======================= -->
+  <header class="nav">
+    <a class="brand" href="#top">
+      <span class="brand-mark">◆</span> Freelance<span class="brand-accent">Flow</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#invoices">Invoices</a>
+      <a href="#impact">Impact</a>
+      <a href="#activity">Activity</a>
+    </nav>
+    <span class="badge testnet-badge">TESTNET</span>
+  </header>
+
+  <!-- ======================= HERO ======================= -->
+  <section class="hero" id="top">
+    <p class="eyebrow">POWERED BY PAIFLOW · RECEIVE → SPLIT</p>
+    <h1>Invoice in XLM.<br><span class="hero-accent">90% yours. 10% for good.</span></h1>
+    <p class="hero-sub">
+      Clients pay your invoices in testnet XLM through a deployed smart-contract flow.
+      Every payment splits itself — no trust, no manual math, proof on-chain.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-label">Earned (paid invoices)</span>
+        <span class="stat-value" id="stat-earned">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Pending</span>
+        <span class="stat-value" id="stat-pending">—</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Overdue</span>
+        <span class="stat-value" id="stat-overdue">—</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= SPLIT DIAGRAM ======================= -->
+  <section class="section flow-section">
+    <h2 class="section-title">One payment <em>·</em> two outcomes</h2>
+    <div class="flow-diagram">
+      <div class="flow-node">
+        <span class="flow-node-title">Client pays</span>
+        <span class="flow-node-sub">Freighter signs the exact prepared XDR</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node flow-node-contract">
+        <span class="flow-node-title">Paiflow contract</span>
+        <span class="flow-node-sub">Receives XLM · verifies original hash</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-splits">
+        <div class="flow-split freelancer">
+          <span class="flow-pct">90%</span>
+          <span class="flow-who">Freelancer</span>
+        </div>
+        <div class="flow-split community">
+          <span class="flow-pct">10%</span>
+          <span class="flow-who">Community fund</span>
+        </div>
+      </div>
+    </div>
+    <p class="section-note">An invoice is only marked <b>paid</b> after both payouts are verified on-chain.</p>
+  </section>
+
+  <!-- ======================= WORKSPACE ======================= -->
+  <main class="workspace">
+
+    <!-- Invoices -->
+    <section class="section" id="invoices">
+      <h2 class="section-title">Invoices</h2>
+
+      <div class="panel-grid">
+        <form id="invoice-form" class="card form-card">
+          <h3 class="card-title">New invoice</h3>
+          <label>Client
+            <select id="invoice-client" required></select>
+          </label>
+          <label>Due date
+            <input type="date" id="invoice-due" required>
+          </label>
+          <div id="items-list">
+            <div class="item-row">
+              <input type="text" class="item-desc" placeholder="Description" required>
+              <input type="number" class="item-qty" placeholder="Qty" min="1" value="1" required>
+              <input type="number" class="item-price" placeholder="Unit price (XLM)" min="0" step="0.01" required>
+              <button type="button" class="btn-remove-item">✕</button>
+            </div>
+          </div>
+          <button type="button" id="add-item-btn" class="btn-ghost">+ Add line item</button>
+          <button type="submit" class="btn-primary">Create invoice</button>
+        </form>
+
+        <div class="card table-card">
+          <table id="invoices-table">
+            <thead>
+              <tr><th>Invoice</th><th>Client</th><th>Total</th><th>Due</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clients -->
+    <section class="section" id="clients">
+      <h2 class="section-title">Clients</h2>
+      <div class="panel-grid panel-grid-reverse">
+        <div class="card table-card">
+          <table id="clients-table">
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Rate</th><th></th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <form id="client-form" class="card form-card">
+          <h3 class="card-title">New client</h3>
+          <label>Name
+            <input type="text" id="client-name" placeholder="e.g. Ada Lovelace" required>
+          </label>
+          <label>Email
+            <input type="email" id="client-email" placeholder="ada@example.com">
+          </label>
+          <label>Hourly rate (XLM)
+            <input type="number" id="client-rate" placeholder="0.00" min="0" step="0.01">
+          </label>
+          <button type="submit" class="btn-primary">Add client</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Impact -->
+    <section class="section" id="impact">
+      <h2 class="section-title">Follow the money</h2>
+      <p class="section-note">Cumulative payouts received on testnet · updates every 10s · <span id="impact-updated"></span></p>
+
+      <div class="impact-grid">
+        <div class="card impact-card">
+          <div class="impact-head">
+            <span class="impact-who">Freelancer <span class="impact-share">90%</span></span>
+            <span class="impact-addr mono" id="impact-freelancer-addr"></span>
+          </div>
+          <div class="impact-total"><span id="impact-freelancer-total">—</span><span class="impact-cur">XLM</span></div>
+          <div class="progress"><div class="progress-fill freelancer" id="impact-freelancer-bar"></div></div>
+          <div class="impact-milestone" id="impact-freelancer-milestone"></div>
+        </div>
+
+        <div class="card impact-card">
+          <div class="impact-head">
+            <span class="impact-who">Community fund <span class="impact-share">10%</span></span>
+            <span class="impact-addr mono" id="impact-community-addr"></span>
+          </div>
+          <div class="impact-total"><span id="impact-community-total">—</span><span class="impact-cur">XLM</span></div>
+          <div class="progress"><div class="progress-fill community" id="impact-community-bar"></div></div>
+          <div class="impact-milestone" id="impact-community-milestone"></div>
+        </div>
+      </div>
+
+      <div class="card combined-card">
+        <span class="combined-label">Total flowing through the split</span>
+        <span class="combined-value"><span id="impact-combined">—</span> XLM</span>
+      </div>
+    </section>
+
+    <!-- Activity -->
+    <section class="section" id="activity">
+      <h2 class="section-title">Recent payments</h2>
+      <p class="section-note">Recorded by this app · payment and payout activity can take a moment to appear · updates every 10s</p>
+      <div class="card feed-card">
+        <div id="activity-feed"><div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>FreelanceFlow — Paiflow Receive → Split demo. Testnet XLM has no real value.</p>
+    <p class="mono">Never paste secret keys into apps, repos or prompts.</p>
+  </footer>
+
+  <!-- ======================= PAYMENT MODAL ======================= -->
+  <div id="pay-modal" class="modal" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Pay with XLM <span class="badge testnet-badge">TESTNET</span></h3>
+        <button type="button" id="pay-modal-close" class="btn-close">✕</button>
+      </div>
+      <div id="pay-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ======================= INVOICE DETAIL MODAL ======================= -->
+  <div id="view-modal" class="modal" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="view-modal-title">Invoice</h3>
+        <button type="button" id="view-modal-close" class="btn-close">✕</button>
+      </div>
+      <div id="view-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Snapshot any extension-injected (legacy) Freighter API before the vendored SDK overwrites window.freighterApi -->
+  <script>window.__nativeFreighter = window.freighterApi || null;</script>
+  <!-- Freighter wallet bridge (vendored from @stellar/freighter-api) -->
+  <script src="vendor/freighter-api.min.js"></script>
+  <!-- Resilient connector: normalizes v5/v6/legacy bridge responses -->
+  <script src="freighter-connector.js"></script>
+  <script src="app.js?v=9"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "freelanceflow",
+  "version": "1.0.0",
+  "description": "Freelancer invoice manager with XLM payments split 90% freelancer / 10% community fund via Paiflow (Stellar testnet).",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22.22.2 <23"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@paiflow/sdk": "0.2.0",
+    "@stellar/freighter-api": "^6.0.1",
+    "@stellar/stellar-sdk": "^17.2.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2"
+  }
+}
