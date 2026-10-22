@@ -11,6 +11,7 @@
     --violet: #6d28d9; --violet-soft: #ede9fe;
     --amber: #b45309; --amber-soft: #fef3c7;
     --green: #15803d; --green-soft: #dcfce7;
+    --blue: #1d4ed8; --blue-soft: #dbeafe;
     --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,72 +26,119 @@
   }
   .kicker { font-size: 13px; font-weight: 800; letter-spacing: .18em; color: var(--violet); margin-bottom: 14px; text-transform: uppercase; }
   h1 { font-size: clamp(40px, 6vw, 74px); letter-spacing: -.03em; line-height: 1.04; }
-  h2 { font-size: clamp(30px, 4.2vw, 50px); letter-spacing: -.02em; margin-bottom: 28px; }
+  h2 { font-size: clamp(28px, 3.8vw, 46px); letter-spacing: -.02em; margin-bottom: 22px; }
   h1 .grad, h2 .grad {
     background: linear-gradient(90deg, var(--violet) 60%, var(--amber));
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
-  p, li { font-size: clamp(15px, 1.6vw, 20px); color: var(--ink-soft); line-height: 1.6; }
-  ul { padding-left: 24px; display: grid; gap: 12px; }
+  p, li { font-size: clamp(15px, 1.6vw, 19px); color: var(--ink-soft); line-height: 1.55; }
+  ul { padding-left: 24px; display: grid; gap: 10px; }
   b, strong { color: var(--ink); }
   .mono { font-family: var(--mono); font-size: .82em; }
   .card {
     background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
     box-shadow: 0 1px 2px rgba(28,25,23,.05), 0 8px 24px rgba(28,25,23,.06);
-    padding: 22px 26px;
+    padding: 20px 24px;
   }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .big { font-size: clamp(34px, 4vw, 52px); font-weight: 800; letter-spacing: -.02em; }
-  .stat-label { font-size: 13px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .06em; }
+  .ex {
+    margin-top: 20px; background: var(--surface);
+    border: 2px dashed var(--amber); border-radius: 16px; padding: 16px 22px;
+  }
+  .ex-tag {
+    display: inline-block; background: var(--amber-soft); color: var(--amber);
+    font-size: 11px; font-weight: 800; letter-spacing: .1em;
+    border-radius: 999px; padding: 3px 12px; margin-bottom: 8px;
+  }
+  .ex p, .ex li { font-size: clamp(13.5px, 1.35vw, 16.5px); }
+  .ex ul { gap: 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .big { font-size: clamp(32px, 3.8vw, 48px); font-weight: 800; letter-spacing: -.02em; }
+  .stat-label { font-size: 12.5px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .06em; }
   .v { color: var(--violet); } .a { color: var(--amber); } .g { color: var(--green); }
-  .flow { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 10px; }
-  .flow .step { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; }
+  .flow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .flow .step { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; }
   .flow .step b { display: block; font-size: 15px; }
   .flow .step span { font-size: 12.5px; color: var(--ink-faint); }
   .flow .arr { color: var(--ink-faint); font-size: 22px; }
-  .split-box { border-radius: 14px; padding: 18px 24px; }
+  .split-box { border-radius: 14px; padding: 16px 22px; }
   .split-box.f { background: var(--violet-soft); } .split-box.c { background: var(--amber-soft); }
-  .split-box .pct { font-size: 34px; font-weight: 800; } .split-box.f .pct { color: var(--violet); } .split-box.c .pct { color: var(--amber); }
-  table { width: 100%; border-collapse: collapse; font-size: clamp(13px, 1.4vw, 17px); background: var(--surface); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow, 0 8px 24px rgba(28,25,23,.06)); }
-  th { text-align: left; padding: 12px 16px; background: #faf9f5; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); }
-  td { padding: 11px 16px; border-top: 1px solid var(--line); color: var(--ink-soft); }
+  .split-box .pct { font-size: 32px; font-weight: 800; } .split-box.f .pct { color: var(--violet); } .split-box.c .pct { color: var(--amber); }
+  table { width: 100%; border-collapse: collapse; font-size: clamp(13px, 1.35vw, 16.5px); background: var(--surface); border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px rgba(28,25,23,.06); }
+  th { text-align: left; padding: 11px 16px; background: #faf9f5; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); }
+  td { padding: 10px 16px; border-top: 1px solid var(--line); color: var(--ink-soft); }
   .hash { font-family: var(--mono); font-size: .8em; }
   .foot {
     position: fixed; bottom: 18px; left: 0; right: 0;
-    display: flex; justify-content: center; gap: 18px; align-items: center;
-    font-size: 12.5px; color: var(--ink-faint); pointer-events: none;
+    display: flex; justify-content: center; gap: 12px; align-items: center;
+    font-size: 12.5px; color: var(--ink-faint); pointer-events: none; flex-wrap: wrap; padding: 0 16px;
   }
   .hint { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; pointer-events: auto; }
   .badge-test { display: inline-block; background: var(--ink); color: #fafaf9; border-radius: 999px; padding: 5px 14px; font-size: 12px; font-weight: 800; letter-spacing: .08em; margin-bottom: 18px; width: max-content; }
-  @media (max-width: 800px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+  @media (max-width: 800px) { .grid2, .grid3 { grid-template-columns: 1fr; } .slide { padding: 5vh 6vw; } }
+
+  /* ---------- Conversation caption bar (what you said / what it answered) ---------- */
+  #caption {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    width: min(720px, 92vw); z-index: 50; display: none;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(28,25,23,.16); padding: 12px 18px;
+  }
+  #caption.show { display: block; }
+  #caption .you { font-size: 13px; color: var(--ink-faint); }
+  #caption .you b { color: var(--blue); }
+  #caption .answer { font-size: 15px; color: var(--ink); margin-top: 4px; line-height: 1.45; }
+
+  /* Mic button states */
+  #mic-btn.listening { background: var(--red-soft); color: #b91c1c; border-color: #b91c1c; }
+  #mic-btn.listening::before {
+    content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: #b91c1c; margin-right: 7px; animation: pulse 1s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: .4; transform: scale(.75);} }
 </style>
 </head>
 <body>
 
+<!-- Live conversation captions -->
+<div id="caption">
+  <div class="you">🎤 You said: <b id="cap-you"></b></div>
+  <div class="answer" id="cap-answer"></div>
+</div>
+
 <div class="deck" id="deck">
 
   <!-- 1 · TITLE -->
-  <section class="slide" data-speech="Welcome! This is Freelance Flow — a freelancer invoicing app where clients pay in Stellar testnet XLM, and every payment automatically splits itself: ninety percent to the freelancer, ten percent to a community fund. Let's walk through how it works.">
+  <section class="slide" data-speech="Welcome! This is Freelance Flow — a freelancer invoicing app where clients pay in Stellar testnet XLM, and every payment automatically splits itself: ninety percent to the freelancer, ten percent to a community fund. You can drive this deck with your voice: turn on the microphone below and say things like, next slide, go to slide five, repeat that, or just ask me a question, like, what is Paiflow?">
     <span class="badge-test">TESTNET DEMO · POWERED BY PAIFLOW</span>
     <p class="kicker">Freelancer invoicing on Stellar</p>
     <h1>Freelance<span class="grad">Flow</span></h1>
-    <p style="margin-top:22px; max-width:640px;">Invoice clients in XLM. Every payment splits itself —
+    <p style="margin-top:20px; max-width:640px;">Invoice clients in XLM. Every payment splits itself —
       <b class="v">90% to the freelancer</b>, <b class="a">10% to a community fund</b> —
       verified on-chain before anyone says “paid”.</p>
-    <p style="margin-top:34px;" class="mono">→ press Enter or arrow keys to navigate</p>
+    <div class="ex" style="max-width:640px;">
+      <span class="ex-tag">EXAMPLE · WHAT A PAYMENT LOOKS LIKE</span>
+      <p>A client owes <b>101 XLM</b> for a design job. They pay once, from their wallet — and the contract itself sends
+        <b class="v">90.9 XLM</b> to the freelancer and <b class="a">10.1 XLM</b> to the community fund.
+        Nobody does any math. Nobody has to be trusted.</p>
+    </div>
+    <p style="margin-top:22px;" class="mono">🎤 say “next slide” · “go to slide 3” · “what is Paiflow?” — or use ← → keys</p>
   </section>
 
   <!-- 2 · PROBLEM -->
-  <section class="slide" data-speech="First, the problem. Freelancers spend hours chasing payments and checking whether money actually arrived. If they also share revenue with a community fund, that's manual math after every single payment. And a pending screen proves nothing — only receipts do.">
+  <section class="slide" data-speech="First, the problem. Meet a typical freelancer: Maria sends an invoice for one hundred one XLM for a logo and landing page. After the client pays, Maria still has to check the blockchain explorer to see if the money really arrived — a pending screen proves nothing. Then she owes ten percent to her community fund, so she grabs a calculator: ten point one XLM, then makes a second transaction to send it. Every single invoice means manual checking and manual math.">
     <p class="kicker">The problem</p>
     <h2>Freelancers juggle invoices.<br><span class="grad">Money should move itself.</span></h2>
-    <ul style="max-width:720px;">
-      <li>Chasing payments and reconciling “did it arrive?” wastes time</li>
-      <li>Revenue-sharing (a community cut) means manual math after every payment</li>
-      <li>A “payment pending” screen proves nothing — receipts do</li>
-    </ul>
-    <div class="grid3" style="margin-top:30px;">
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · ONE INVOICE, MANY CHORES</span>
+      <ul>
+        <li><b>1.</b> Maria invoices a client <b>101 XLM</b> (logo + landing page)</li>
+        <li><b>2.</b> Client sends payment — Maria opens the block explorer to check it <i>actually</i> arrived</li>
+        <li><b>3.</b> She owes 10% to the community fund → calculator: <b>101 × 0.10 = 10.1 XLM</b></li>
+        <li><b>4.</b> She makes a <i>second</i> transaction to send the 10.1 — every invoice, every time</li>
+      </ul>
+    </div>
+    <div class="grid3" style="margin-top:20px;">
       <div class="card"><span class="stat-label">Idea</span><p style="margin-top:6px;"><b>One payment in</b> — the contract does the rest</p></div>
       <div class="card"><span class="stat-label">Trust</span><p style="margin-top:6px;"><b>Smart contract</b> splits, not a promise</p></div>
       <div class="card"><span class="stat-label">Proof</span><p style="margin-top:6px;"><b>On-chain events</b> before “paid”</p></div>
@@ -98,7 +146,7 @@
   </section>
 
   <!-- 3 · CONCEPT -->
-  <section class="slide" data-speech="The concept is simple: one payment in, two outcomes. The client pays from their Freighter wallet. A Paiflow smart contract receives the XLM and splits it — ninety percent to the freelancer, ten percent to the community fund. Neither recipient needs to sign anything. The shares are baked into the contract as basis points: nine thousand plus one thousand, one hundred percent.">
+  <section class="slide" data-speech="The concept: one payment in, two outcomes. Example: the client pays one hundred one XLM from their Freighter wallet. The Paiflow receive-and-split contract takes it and splits it — ninety point nine to the freelancer, ten point one to the community fund. Neither recipient signs anything. The shares are baked into the contract as basis points: nine thousand basis points plus one thousand — that's one hundred percent.">
     <p class="kicker">The concept</p>
     <h2>One payment · <span class="grad">two outcomes</span></h2>
     <div class="flow">
@@ -111,12 +159,16 @@
         <div class="split-box c"><span class="pct">10%</span><p>Community fund — no signature needed</p></div>
       </div>
     </div>
-    <p style="margin-top:26px;">Deployed on <b>Stellar testnet</b> via Paiflow. Shares are basis points in the contract:
-      <span class="mono">9000</span> + <span class="mono">1000</span> = 100%.</p>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · 101 XLM IN</span>
+      <p><b>101 XLM</b> paid by the client &nbsp;→&nbsp; <b class="v">90.9 XLM</b> freelancer + <b class="a">10.1 XLM</b> community fund.
+        Shares are basis points in the contract: <span class="mono">9000</span> + <span class="mono">1000</span> = 100%.
+        One signature from the payer — <b>zero</b> signatures from recipients.</p>
+    </div>
   </section>
 
   <!-- 4 · ARCHITECTURE -->
-  <section class="slide" data-speech="The architecture has five pieces. The browser UI manages invoices and dashboards — it holds no secrets, ever. The Node server keeps the Paiflow API token, prepares and submits transactions, and verifies receipts. Freighter is the wallet, and only it ever signs. Paiflow runs the receive-and-split contract. And underneath everything, the Stellar testnet is the final source of truth.">
+  <section class="slide" data-speech="The architecture has five pieces. The browser UI manages invoices and dashboards — it holds no secrets, ever: if you view the page source, the worst you can find is the two public split addresses. The Node server keeps the Paiflow API token, prepares and submits transactions, and verifies receipts. Freighter is the wallet, and only it ever signs. Paiflow runs the receive-and-split contract. And underneath everything, the Stellar testnet is the final source of truth.">
     <p class="kicker">Architecture</p>
     <h2>Five pieces, <span class="grad">one payment line</span></h2>
     <div class="grid2">
@@ -125,27 +177,37 @@
       <div class="card"><p><b>Freighter</b></p><p style="font-size:15px;">Browser wallet. Only it ever signs — the app never touches keys.</p></div>
       <div class="card"><p><b>Paiflow</b></p><p style="font-size:15px;">The Receive → Split contract deployment (UUID <span class="mono">75743fcb…</span>).</p></div>
     </div>
-    <p style="margin-top:22px;"><b>Stellar testnet</b> is the ledger underneath everything — final source of truth.</p>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · WHAT EACH PIECE SEES</span>
+      <p>The browser sees: invoice form, payment buttons, two <b>public</b> addresses.<br>
+        The server sees: the API token, prepared XDR envelopes, receipts.<br>
+        Freighter sees: the exact transaction, asks the human to sign.<br>
+        The blockchain sees: everything — that's the audit trail.</p>
+    </div>
   </section>
 
   <!-- 5 · FLOW -->
-  <section class="slide" data-speech="Here is the payment flow, step by step. One: create a client and an invoice with line items. Two: the client reviews the payment — network, amount, and both recipients. Three: the server prepares the transaction through the Paiflow SDK and saves the original XDR. Four: Freighter shows that exact transaction and the client signs it. Five: the server verifies the signed body hash matches the original — tampered or fee-bump-wrapped envelopes are rejected — then submits. Six: it polls the receipt and events, checking both payouts. And seven: only then does the invoice flip to paid — automatically.">
+  <section class="slide" data-speech="Here is the payment flow, step by step, with a running example. Maria created invoice number one: landing page, six hours at fifteen XLM, plus two revision rounds at five XLM — total one hundred one XLM. Step one: create the client and invoice. Step two: the client reviews network, amount and both recipients. Step three: the server prepares the transaction through the Paiflow SDK and saves the original XDR. Step four: Freighter shows that exact transaction and the client signs it. Step five: the server verifies the signed body hash matches the original — tampered or fee-bump-wrapped envelopes are rejected — then submits. Step six: it polls the receipt and events, checking both payouts. Step seven: only then does the invoice flip to paid — automatically.">
     <p class="kicker">Payment flow</p>
     <h2>What happens when a client <span class="grad">clicks “Pay with XLM”</span></h2>
-    <table>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · INVOICE #1</span>
+      <p>Landing page — 6 hrs × 15 XLM &nbsp;+&nbsp; Revisions — 2 × 5 XLM &nbsp;=&nbsp; <b>101 XLM</b>, due in 14 days.</p>
+    </div>
+    <table style="margin-top:16px;">
       <tr><th>#</th><th>Step</th><th>Where</th></tr>
       <tr><td>1</td><td>Create client + invoice with line items</td><td>Browser</td></tr>
-      <tr><td>2</td><td>Review screen: TESTNET, amount, 90/10 recipients</td><td>Browser</td></tr>
+      <tr><td>2</td><td>Review screen: TESTNET, 101 XLM, 90/10 recipients</td><td>Browser</td></tr>
       <tr><td>3</td><td><b>Prepare</b> — server calls Paiflow SDK, saves the original XDR</td><td>Server</td></tr>
       <tr><td>4</td><td>Freighter shows the exact transaction → client <b>signs the original XDR</b></td><td>Wallet</td></tr>
       <tr><td>5</td><td>Server checks the signed body hash == original (tamper/fee-bump rejected), submits</td><td>Server</td></tr>
-      <tr><td>6</td><td>Polls receipt + events for the original hash; checks <b>both payouts</b></td><td>Server</td></tr>
+      <tr><td>6</td><td>Polls receipt + events; checks <b>both payouts</b> (90.9 and 10.1)</td><td>Server</td></tr>
       <tr><td>7</td><td>Only then → invoice flips to <b class="g">paid</b> — automatically</td><td>Browser</td></tr>
     </table>
   </section>
 
   <!-- 6 · SAFETY -->
-  <section class="slide" data-speech="Safety is the core of the design. Preparations are idempotent — repeating a request returns the same payment, never a new one, so you can never pay twice. There are no silent retries: an expired preparation or a failed transaction keeps its record for a human decision. Signing is tamper-evident — the server compares the hash of what the wallet signed against the prepared envelope. And secrets stay put: the API token lives server-side only, and signing keys never leave the wallet.">
+  <section class="slide" data-speech="Safety is the core of the design. Preparations are idempotent: if the client clicks pay, gets distracted, and clicks again, the server returns the same existing payment — never a second one, so a double click can never become a double charge. Signing is tamper-evident — the server compares the hash of what the wallet signed against the prepared envelope. And secrets stay put: the API token lives server-side only, and signing keys never leave the wallet.">
     <p class="kicker">Safety design</p>
     <h2>Built to <span class="grad">never lose money</span></h2>
     <div class="grid2">
@@ -154,10 +216,16 @@
       <div class="card"><p><b>Tamper-evident signing</b></p><p style="font-size:15px;">Server compares the hash of what Freighter signed against the prepared envelope. Changed body or fee-bump wrapper = rejected.</p></div>
       <div class="card"><p><b>Secrets stay put</b></p><p style="font-size:15px;">API token lives server-side only; signing keys stay in the wallet. Nothing sensitive in the browser.</p></div>
     </div>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · DOUBLE-CLICK ATTACK</span>
+      <p>The client clicks <b>“Approve &amp; prepare payment”</b> twice in a panic. The server looks up invoice #1,
+        finds the payment it already prepared, and returns <i>that same one</i>.
+        Result: <b>one</b> transaction, signed once, for 101 XLM — not 202.</p>
+    </div>
   </section>
 
   <!-- 7 · RECOVERY -->
-  <section class="slide" data-speech="When things go wrong, the Check Payment button follows a strict recovery table. If the transaction succeeded with matching payouts, it marks the invoice paid and never re-sends. If it's pending or unknown, it keeps the original record and re-checks the same hash. If it failed, it keeps the receipt for a deliberate, human-initiated retry. And if the preparation expired, it retains the record and asks you to contact support — never a silent replacement. Even a server restart loses nothing, because orders persist to disk.">
+  <section class="slide" data-speech="When things go wrong, the Check Payment button follows a strict recovery table. Example: the client's Wi-Fi dropped right after signing — the screen says still paying. They click Check Payment. If the transaction succeeded with matching payouts, it marks the invoice paid and never re-sends. If it's pending or unknown, it keeps the original record and re-checks the same hash. If it failed, it keeps the receipt for a deliberate, human-initiated retry. And if the preparation expired, it retains the record and asks you to contact support — never a silent replacement. Even a server restart loses nothing, because orders persist to disk.">
     <p class="kicker">Recovery</p>
     <h2>When things go wrong: <span class="grad">“Check payment”</span></h2>
     <table>
@@ -167,11 +235,16 @@
       <tr><td>Confirmed FAILED</td><td>Keeps the receipt; fix cause before a deliberate retry</td></tr>
       <tr><td>Expired preparation / NOT_FOUND</td><td>Retains record; asks for support — no silent replacement</td></tr>
     </table>
-    <p style="margin-top:20px;">Reloading the tab mid-sign loses nothing — and orders persist to <span class="mono">orders.json</span> across restarts.</p>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · WI-FI DROPS MID-PAYMENT</span>
+      <p>Invoice #1 shows <b>“paying”</b>. The client clicks <b>Check payment</b> — the server finds the transaction hash,
+        reads the ledger: SUCCESS, 90.9 and 10.1 both paid out. Invoice flips to <b class="g">paid</b>.
+        No new payment is created — the old one is simply <i>confirmed</i>.</p>
+    </div>
   </section>
 
   <!-- 8 · FEATURES -->
-  <section class="slide" data-speech="The app today is more than a checkout button. It's a full invoice manager with clients, line items, net-fourteen due dates and permanent numbering. It has a live impact dashboard — follow the money — with cumulative totals per recipient, read straight from the ledger. An activity feed shows every payment with its transaction link and split amounts. Verification is automatic: a success status alone is never enough — the payout evidence must match the configured addresses and shares first. The wallet bridge speaks both version six and legacy Freighter APIs. And recovery works even if the order store is gone, by re-verifying the original transaction hash.">
+  <section class="slide" data-speech="The app today is more than a checkout button. It's a full invoice manager with clients, line items, net-fourteen due dates and permanent numbering — delete invoice two and the rest keep their numbers, so records never point at the wrong invoice. It has a live impact dashboard showing cumulative totals per recipient, read straight from the ledger. An activity feed shows every payment with its transaction link. Verification is automatic: a success status alone is never enough. And recovery works even if the order store is gone, by re-verifying the original transaction hash.">
     <p class="kicker">The app today</p>
     <h2>More than <span class="grad">a checkout button</span></h2>
     <div class="grid3">
@@ -181,6 +254,11 @@
       <div class="card"><p><b>Auto-verification</b></p><p style="font-size:15px;">Success ≠ paid. Payout evidence must match addresses + shares first.</p></div>
       <div class="card"><p><b>Resilient wallet bridge</b></p><p style="font-size:15px;">Speaks v6 and legacy Freighter APIs; prompts connection when a site is new.</p></div>
       <div class="card"><p><b>Recovery-first</b></p><p style="font-size:15px;">Hash-based re-verification even if the order store is gone.</p></div>
+    </div>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · PERMANENT INVOICE NUMBERS</span>
+      <p>You have invoices <b>#1 #2 #3</b>. You delete <b>#2</b>. The list now shows <b>#1 #3</b> — #3 does <b>not</b> become the new #2.
+        Numbers are never reused, so “invoice #3” always means the same invoice, in your books and on the blockchain.</p>
     </div>
   </section>
 
@@ -198,15 +276,19 @@
         <span class="stat-label">Example payment</span>
         <p style="margin-top:10px;" class="hash">e8a7e046…dc1a82</p>
         <p style="font-size:15px;">101 XLM in → <b class="v">90.9</b> + <b class="a">10.1</b> out<br>
-        Receipt SUCCESS · events matched · <b class="g">verified: true</b></p>
+          Receipt SUCCESS · events matched · <b class="g">verified: true</b></p>
         <p style="font-size:13px; margin-top:10px;" class="hash">stellar.expert/explorer/testnet</p>
       </div>
     </div>
-    <p style="margin-top:22px;">Three real payments were recovered and verified during the build — including one whose order record had been lost.</p>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · SPOT-CHECK IT YOURSELF</span>
+      <p>Take any hash from the activity feed, paste it into <b>stellar.expert/explorer/testnet</b> —
+        you'll see the 101 XLM arrive and the two payouts leave. The ledger is the receipt.</p>
+    </div>
   </section>
 
   <!-- 10 · STACK -->
-  <section class="slide" data-speech="Under the hood: the server runs Node twenty-two with Express, the Paiflow SDK, and the Stellar SDK. The browser is vanilla JavaScript with the vendored Freighter API — no build step at all. The contract is a Soroban smart contract on the Stellar testnet. And one detail we care about: all amounts are integer stroops handled with BigInt — there is no floating point anywhere near money.">
+  <section class="slide" data-speech="Under the hood: the server runs Node twenty-two with Express, the Paiflow SDK, and the Stellar SDK. The browser is vanilla JavaScript with the vendored Freighter API — no build step at all. The contract is a Soroban smart contract on the Stellar testnet. And one detail we care about: all amounts are integer stroops handled with BigInt — there is no floating point anywhere near money. Why? Because computers can't store zero point one exactly, and money deserves exactness.">
     <p class="kicker">Under the hood</p>
     <h2>Tech stack</h2>
     <div class="grid2">
@@ -215,11 +297,16 @@
       <div class="card"><p><b>Chain</b></p><p style="font-size:15px;" class="mono">Stellar testnet · Soroban contract (invokeHostFunction)</p></div>
       <div class="card"><p><b>Data</b></p><p style="font-size:15px;" class="mono">localStorage (UI) · orders.json (payment records)</p></div>
     </div>
-    <p style="margin-top:22px;">Amounts are integer <b>stroops</b> via <span class="mono">BigInt</span> — no floating point anywhere near money.</p>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · WHY STROOPS + BIGINT</span>
+      <p>1 XLM = <b>10,000,000 stroops</b> (integers). So 101 XLM = <span class="mono">1,010,000,000</span> stroops,
+        split into <span class="mono">909,000,000</span> + <span class="mono">101,000,000</span>.<br>
+        If we used decimals, <span class="mono">0.1 + 0.2 ≠ 0.3</span> on a computer — with stroops, it's always exact.</p>
+    </div>
   </section>
 
   <!-- 11 · LIMITS -->
-  <section class="slide" data-speech="To be honest about limits: a production version would replace the JSON file store with a real database, add authentication and ownership checks on the checkout routes, rate limiting, stricter validation, and a receipt verifier tuned to the exact production event schema. And mainnet would only come after a proper security audit. This walkthrough is testnet-only.">
+  <section class="slide" data-speech="To be honest about limits: a production version would replace the JSON file store with a real database — for example, if the hosting platform restarts, orders dot jay-son resets. It would add authentication and ownership checks on the checkout routes, rate limiting, and stricter validation. And mainnet would only come after a proper security audit. This walkthrough is testnet-only.">
     <p class="kicker">Honest limits</p>
     <h2>What a production version <span class="grad">still needs</span></h2>
     <ul style="max-width:760px;">
@@ -229,14 +316,24 @@
       <li>A receipt verifier tuned to the exact production event schema</li>
       <li>Mainnet only with a proper audit — this walkthrough is testnet-only</li>
     </ul>
+    <div class="ex">
+      <span class="ex-tag">EXAMPLE · WHAT WOULD BREAK AT SCALE</span>
+      <p>Two freelancers share one deployed demo on free hosting. Freelancer A pays an invoice;
+        the platform redeploys and <span class="mono">orders.json</span> resets.
+        B's “check payment” can't find A's record — that's why recovery re-verifies by <b>transaction hash</b> instead.</p>
+    </div>
   </section>
 
   <!-- 12 · CLOSE -->
-  <section class="slide" data-speech="So, to sum up: invoice, get paid, and split for good. Every claim in this deck is checkable on the Stellar testnet ledger — that's the whole point. Thank you for listening — are there any questions?" style="text-align:center; align-items:center;">
+  <section class="slide" data-speech="So, to sum up: invoice, get paid, and split for good. Example: Maria sends one hundred one XLM invoice, the client pays once, the contract sends ninety point nine and ten point one, and the app says paid only after seeing both on the ledger. Every claim in this deck is checkable on the Stellar testnet ledger — that's the whole point. Thank you for listening — are there any questions?" style="text-align:center; align-items:center;">
     <span class="badge-test">FREELANCEFLOW</span>
     <h2>Invoice. <span class="grad">Get paid.</span><br>Split for good.</h2>
-    <p style="margin-top:18px;">Every claim in this deck is checkable on the Stellar testnet ledger — that’s the point.</p>
-    <p style="margin-top:30px;" class="mono">Thank you · questions?</p>
+    <p style="margin-top:16px;">Every claim in this deck is checkable on the Stellar testnet ledger — that’s the point.</p>
+    <div class="ex" style="max-width:560px; text-align:left;">
+      <span class="ex-tag">EXAMPLE · THE WHOLE STORY IN ONE LINE</span>
+      <p><b>101 in</b> → contract → <b class="v">90.9 freelancer</b> + <b class="a">10.1 community</b> → <b class="g">verified → paid</b>. One signature. Zero trust. Full proof.</p>
+    </div>
+    <p style="margin-top:20px;" class="mono">Thank you · questions?</p>
   </section>
 
 </div>
@@ -244,7 +341,9 @@
 <div class="foot">
   <span class="hint" id="counter">1 / 12</span>
   <button class="hint" id="voice-btn" style="cursor:pointer; font: inherit; color: var(--ink-soft);">🔇 Voice: OFF</button>
-  <span class="hint">← → navigate · Home/End jump</span>
+  <button class="hint" id="mic-btn" style="cursor:pointer; font: inherit; color: var(--ink-soft);">🎤 Listen: OFF</button>
+  <button class="hint" id="replay-btn" style="cursor:pointer; font: inherit; color: var(--ink-soft);">🔁 Replay</button>
+  <span class="hint">say “next slide” · “go to slide 3” · ask a question</span>
 </div>
 
 <script>
@@ -253,53 +352,61 @@
   const slides = slideEls.length;
   let i = 0;
 
-  /* ---------- AI presenter voice (Web Speech API) ---------- */
+  /* ============================================================
+     SPEAKING — the presenter voice (Web Speech API)
+     ============================================================ */
   const synth = window.speechSynthesis;
   const voiceBtn = document.getElementById('voice-btn');
+  const replayBtn = document.getElementById('replay-btn');
   let voiceOn = false;
-  let speaking = false;
 
   function pickVoice() {
     const voices = synth.getVoices().filter(v => v.lang.toLowerCase().startsWith('en'));
-    // Prefer natural-sounding neural voices available in modern browsers
     return voices.find(v => /natural|neural|aria|samantha|google/i.test(v.name))
         || voices.find(v => v.default) || voices[0] || null;
   }
   if (synth) synth.onvoiceschanged = () => pickVoice();
 
-  function speakCurrent() {
-    if (!voiceOn || !synth) return;
+  function say(text, opts = {}) {
+    if (!synth) return;
     synth.cancel();
-    const text = slideEls[i].dataset.speech;
-    if (!text) return;
     const u = new SpeechSynthesisUtterance(text);
     const v = pickVoice();
     if (v) u.voice = v;
-    u.rate = 1.02; u.pitch = 1;
-    speaking = true;
-    u.onend = () => {
-      speaking = false;
-      if (voiceOn && i < slides - 1) setTimeout(() => go(i + 1), 450);
-    };
-    u.onerror = () => { speaking = false; };
+    u.rate = opts.rate ?? 1.02; u.pitch = 1;
+    if (opts.onend) u.onend = opts.onend;
     synth.speak(u);
   }
 
+  function speakCurrent() {
+    if (!voiceOn || !synth) return;
+    const text = slideEls[i].dataset.speech;
+    if (text) say(text);
+  }
+
   voiceBtn.addEventListener('click', e => {
-    e.stopPropagation(); // don't advance the deck
+    e.stopPropagation();
     voiceOn = !voiceOn;
     voiceBtn.textContent = voiceOn ? '🔊 Voice: ON' : '🔇 Voice: OFF';
-    if (voiceOn) { speakCurrent(); }          // click counts as the user gesture browsers require
+    if (voiceOn) speakCurrent();
     else if (synth) synth.cancel();
+  });
+
+  replayBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!synth) return;
+    voiceOn = true;
+    voiceBtn.textContent = '🔊 Voice: ON';
+    speakCurrent();
   });
 
   function go(n) {
     i = Math.max(0, Math.min(slides - 1, n));
     deck.style.transform = `translateX(-${i * 100}vw)`;
     document.getElementById('counter').textContent = `${i + 1} / ${slides}`;
-    if (synth) synth.cancel();                // stop narrating the previous slide
-    speaking = false;
-    speakCurrent();                           // narrate the new one if voice is on
+    hideCaption();
+    if (synth) synth.cancel();
+    speakCurrent();
   }
 
   document.addEventListener('keydown', e => {
@@ -309,8 +416,179 @@
     if (e.key === 'End') go(slides - 1);
   });
   document.addEventListener('click', e => {
-    if (e.target.closest('.foot')) return;    // let footer buttons work
+    if (e.target.closest('.foot')) return;
     go(i + 1);
+  });
+
+  /* ============================================================
+     LISTENING — speech recognition (voice commands + Q&A)
+     ============================================================ */
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const micBtn = document.getElementById('mic-btn');
+  let rec = null, micOn = false;
+  let capTimer = null;
+
+  function showCaption(you, answer) {
+    const box = document.getElementById('caption');
+    document.getElementById('cap-you').textContent = '“' + you + '”';
+    document.getElementById('cap-answer').textContent = answer;
+    box.classList.add('show');
+    clearTimeout(capTimer);
+    capTimer = setTimeout(hideCaption, 14000);
+  }
+  function hideCaption() {
+    clearTimeout(capTimer);
+    document.getElementById('caption').classList.remove('show');
+  }
+
+  /* ---- Presenter's built-in knowledge base (keyword → spoken answer) ---- */
+  const KB = [
+    { keys: ['paiflow', 'pie flow', 'pay flow', 'pipe flow'],
+      a: 'Paiflow is the platform this demo is built on. It lets you deploy money flows — like our Receive then Split flow — as smart contracts on Stellar, without writing contract code. Our deployment receives XLM and automatically splits it ninety percent to the freelancer and ten percent to the community fund.' },
+    { keys: ['freighter', 'wallet', 'extension'],
+      a: 'Freighter is a browser wallet for Stellar — like MetaMask, but for XLM. It stores your secret key safely, and when an app asks you to pay, it pops up showing the exact transaction so only you can approve and sign it. The app itself never touches your keys.' },
+    { keys: ['stroop', 'smallest unit'],
+      a: 'A stroop is the smallest unit of XLM — one XLM equals ten million stroops. The app does all money math in whole stroops using BigInt, so there is never any floating point rounding. For example, one hundred one XLM is one billion ten million stroops.' },
+    { keys: ['split', '90', 'ninety', '10 percent', 'ten percent', 'percentage', 'basis point'],
+      a: 'Every incoming payment is split by the contract itself — ninety percent goes to the freelancer and ten percent to the community fund. The shares are baked into the contract as basis points: nine thousand plus one thousand. So one hundred one XLM becomes ninety point nine to the freelancer and ten point one to the fund. No one has to do the math, and no one has to be trusted.' },
+    { keys: ['testnet', 'real money', 'real value', 'mainnet', 'fake'],
+      a: 'Everything here runs on the Stellar testnet, which is a practice network. The XLM is free from a faucet called Friendbot and has zero real-world value. That makes it perfect for demos like this — same technology as mainnet, zero financial risk.' },
+    { keys: ['how do i pay', 'how to pay', 'pay with xlm', 'make a payment'],
+      a: 'To pay an invoice: open the invoice, click Pay with XLM, review the amount and the two recipients, then approve in your Freighter wallet. The app submits the transaction and watches the blockchain. Once both payouts are verified on-chain, the invoice flips to paid — automatically.' },
+    { keys: ['stuck', 'fail', 'failed', 'error', 'wifi', 'wi fi', 'went wrong', 'recover'],
+      a: 'If a payment seems stuck or the internet drops mid-payment, do not pay again. Just click the Check payment button. The app looks up the original transaction on the blockchain: if it succeeded with both payouts, the invoice is marked paid; if it failed, the record is kept for a deliberate retry. It never silently re-sends money.' },
+    { keys: ['safe', 'secure', 'security', 'trust', 'scam', 'steal'],
+      a: 'Three safety pillars. First, your secret key never leaves Freighter — the app cannot sign anything by itself. Second, the app verifies the exact transaction you signed, so a tampered or swapped transaction is rejected. Third, preparations are idempotent — clicking pay twice can never charge you twice.' },
+    { keys: ['xdr', 'hash'],
+      a: 'An XDR is the encoded form of a Stellar transaction — think of it as the payment instruction sheet. The server prepares one, Freighter shows it to you to sign, and the app compares the hash of your signed version against the original. Any tampering is caught before submission.' },
+    { keys: ['soroban', 'smart contract', 'contract'],
+      a: 'Soroban is Stellar\'s smart contract platform. Our Paiflow Receive then Split flow is a Soroban contract deployed on the testnet: it receives the client\'s XLM in one call and pays out both shares in the same transaction — atomic, meaning either everything happens or nothing does.' },
+    { keys: ['who get', 'who receives', 'address', 'where does the money', 'community fund'],
+      a: 'There are two recipients, and both addresses are public and verifiable. The freelancer receives ninety percent at G C U W L S B G P four B O three P X R B F B E N P U Y Z B five six S A Y six R G M five three two Y F I five Y W H Y U four five H P O S X C two. The community fund receives ten percent at G D six S E Z N six W five five five L Q G T A C M A M Z A U B L C seven W four J four A seven four five K M T G Z five two C D F C Z H D Z seven four K F D. Both start with G, which means funded accounts on Stellar.' },
+    { keys: ['due date', 'net 14', 'fourteen days'],
+      a: 'When you create an invoice, the due date is automatically set to fourteen days later — that is the standard net fourteen payment term. It is fixed once the invoice exists, so the record stays accurate, and overdue invoices turn red automatically after the deadline.' },
+    { keys: ['invoice number', 'numbering', 'deleted invoice', 'delete invoice'],
+      a: 'Invoice numbers are permanent and never reused. If you have invoices one, two and three, then delete number two, the list shows one and three. Number three does not become the new two — so an invoice number always refers to the same invoice, forever.' },
+    { keys: ['how many slide', 'which slide', 'what slide', 'where are we'],
+      a: () => `We are on slide ${i + 1} of ${slides}. You can say, go to slide, followed by any number between one and ${slides}.` },
+    { keys: ['help', 'what can you do', 'commands', 'voice command'],
+      a: 'Here is what you can say. Next slide, or previous slide, to move around. Go to slide, followed by a number, to jump. Say repeat that, to hear the current slide again. Or just ask me a question, like, what is Paiflow, what is a stroop, or how does the split work. And say stop listening, to turn the microphone off.' },
+  ];
+
+  async function answerQuestion(q) {
+    showCaption(q, 'Thinking…');
+    voiceOn = true;
+    voiceBtn.textContent = '🔊 Voice: ON';
+
+    // 1) Try the real AI first — it can answer anything.
+    try {
+      const r = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: q, slide: i + 1 })
+      });
+      const data = await r.json();
+      if (data?.answer) {
+        showCaption(q, data.answer);
+        return say(data.answer);
+      }
+      throw new Error(data?.error?.message || 'no answer');
+    } catch (_) {
+      // 2) Offline / AI unreachable → answer from the built-in script.
+      const ql = q.toLowerCase();
+      let best = null;
+      for (const item of KB) {
+        for (const k of item.keys) { if (ql.includes(k)) { best = item; break; } }
+        if (best) break;
+      }
+      const ans = best ? (typeof best.a === 'function' ? best.a() : best.a)
+        : 'I could not reach the AI right now — check that the server is running, and that you opened the page via localhost or the tunnel. Meanwhile, try asking about Paiflow, Freighter, stroops, or the split.';
+      showCaption(q, ans);
+      return say(ans);
+    }
+  }
+
+  /* ---- Command parser ---- */
+  const NUMWORDS = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10, eleven:11, twelve:12 };
+
+  function handleCommand(raw) {
+    const t = raw.toLowerCase().trim().replace(/[?.!,]/g, '');
+    if (!t) return;
+
+    // Navigation commands
+    if (/\b(next|forward|continue|move on|ahead)\b/.test(t)) return go(i + 1);
+    if (/\b(back|previous|before|last slide back)\b/.test(t)) return go(i - 1);
+    if (/\b(first slide|start|beginning|go to start)\b/.test(t)) return go(0);
+    if (/\b(last slide|the end|go to end)\b/.test(t)) return go(slides - 1);
+
+    const m = t.match(/(?:slide\s+|number\s+|go to\s+|page\s+)(\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\b/);
+    if (m) {
+      const n = parseInt(m[1], 10) || NUMWORDS[m[1]];
+      if (n >= 1 && n <= slides) return go(n - 1);
+      return answerQuestion(raw); // e.g. "go to slide 99"
+    }
+
+    if (/\b(repeat|again|explain again|what is this|what's this|say that again)\b/.test(t)) {
+      const text = slideEls[i].dataset.speech;
+      showCaption(raw, text || 'Nothing to repeat here.');
+      voiceOn = true; voiceBtn.textContent = '🔊 Voice: ON';
+      return say(text || '');
+    }
+
+    if (/\b(stop listening|stop mic|mute|turn off (the )?mic)\b/.test(t)) return stopMic();
+
+    if (/\b(thank|thanks|great|awesome|nice)\b/.test(t)) {
+      showCaption(raw, "You're welcome! Say next slide whenever you're ready.");
+      return say("You're welcome! Say next slide whenever you're ready.");
+    }
+
+    // Anything else = a question for the presenter
+    answerQuestion(raw);
+  }
+
+  /* ---- Mic on/off ---- */
+  function startMic() {
+    if (!SR) {
+      alert('Speech recognition is not supported in this browser. Use Chrome or Edge, and open the page via https or localhost.');
+      return;
+    }
+    rec = new SR();
+    rec.lang = 'en-US';
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+    rec.continuous = true;
+
+    rec.onresult = e => {
+      const last = e.results[e.results.length - 1];
+      if (last.isFinal) handleCommand(last[0].transcript);
+    };
+    rec.onerror = e => {
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        stopMic();
+        alert('Microphone blocked. Click the lock icon in the address bar and allow the microphone, then try again.');
+      }
+    };
+    rec.onend = () => { if (micOn) { try { rec.start(); } catch (_) {} } }; // browsers drop long sessions; keep listening
+
+    try { rec.start(); } catch (_) {}
+    micOn = true;
+    micBtn.textContent = '🎤 Listening…';
+    micBtn.classList.add('listening');
+    // Let the user know it's live
+    say('Microphone is on. Say, next slide, or ask me anything.', { rate: 1.05 });
+  }
+
+  function stopMic() {
+    micOn = false;
+    if (rec) { try { rec.stop(); } catch (_) {} }
+    micBtn.textContent = '🎤 Listen: OFF';
+    micBtn.classList.remove('listening');
+  }
+
+  micBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (micOn) { stopMic(); if (synth) synth.cancel(); }
+    else startMic();
   });
 </script>
 </body>

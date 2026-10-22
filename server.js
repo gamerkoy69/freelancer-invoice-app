@@ -527,6 +527,73 @@ app.get('/api/activity', (req, res) => {
   res.json({ items, updatedAt: new Date().toISOString() });
 });
 
+// ---- AI presenter: answer any question about the app (or anything else) ----
+// Default: free pollinations.ai endpoint (no API key needed).
+// For a smarter model, set in .env:
+//   AI_PROVIDER=openai     AI_API_KEY=sk-...     AI_BASE_URL=https://api.openai.com/v1     AI_MODEL=gpt-4o-mini
+// (or any OpenAI-compatible endpoint: OpenRouter, Groq, Gemini's OpenAI-compat URL, etc.)
+const AI_SYSTEM = `You are the friendly AI presenter of "FreelanceFlow", a demo app where freelancers invoice clients who pay in Stellar TESTNET XLM via the Paiflow Receive->Split smart contract: every payment splits itself 90% to the freelancer (${process.env.FREELANCER_ADDRESS || 'a public address'}) and 10% to a community fund (${process.env.COMMUNITY_ADDRESS || 'a public address'}), verified on-chain before an invoice is marked paid. Key facts: clients sign with the Freighter browser wallet; the server holds the Paiflow API token (secret stays server-side); amounts use integer stroops via BigInt (1 XLM = 10,000,000 stroops); testnet XLM is free and worthless; recover stuck payments with the "Check payment" button (never re-pays automatically); tech stack: Node 22 + Express, @paiflow/sdk, @stellar/stellar-sdk, vanilla JS, Soroban contract on Stellar testnet. Answer questions clearly and briefly (under 120 words), conversationally, as if speaking aloud. If asked about things unrelated to the app, just answer helpfully as a knowledgeable assistant. Never reveal or ask for secret keys or API tokens.`;
+
+app.post('/api/ask', async (req, res) => {
+  try {
+    const question = String(req.body?.question ?? '').trim();
+    if (!question) return safeError(res, 422, 'VALIDATION', 'question is required');
+    if (question.length > 500) return safeError(res, 422, 'VALIDATION', 'question too long');
+
+    const key = process.env.AI_API_KEY;
+    let answer;
+
+    if (key) {
+      // OpenAI-compatible chat completions (OpenAI, OpenRouter, Groq, etc.)
+      const base = (process.env.AI_BASE_URL || 'https://api.openai.com/v1').replace(/\/$/, '');
+      const model = process.env.AI_MODEL || 'gpt-4o-mini';
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 30000);
+      try {
+        const r = await fetch(`${base}/chat/completions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+          body: JSON.stringify({
+            model,
+            messages: [{ role: 'system', content: AI_SYSTEM }, { role: 'user', content: question }],
+            max_tokens: 300
+          }),
+          signal: ctrl.signal
+        });
+        if (!r.ok) throw new Error(`AI provider returned ${r.status}`);
+        const data = await r.json();
+        answer = data?.choices?.[0]?.message?.content?.trim();
+      } finally { clearTimeout(timer); }
+    } else {
+      // Free no-key fallback: pollinations.ai — 1 reply / 30s per IP, so on a
+      // rate-limit or budget message we wait out the cooldown and try again.
+      const url = `https://text.pollinations.ai/${encodeURIComponent(question)}`
+        + `?model=${encodeURIComponent(process.env.AI_FREE_MODEL || 'openai-fast')}&system=${encodeURIComponent(AI_SYSTEM)}`;
+      let lastErr = null;
+      for (let attempt = 0; attempt < 3 && !answer; attempt++) {
+        if (attempt > 0) await new Promise(r => setTimeout(r, 32000)); // free-tier cooldown
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 30000);
+        try {
+          const r = await fetch(url, { signal: ctrl.signal });
+          const text = (await r.text()).trim();
+          if (!r.ok) throw new Error(`AI endpoint returned ${r.status}`);
+          if (/free limit reached|budget|please wait|raise the key/i.test(text)) {
+            throw new Error('AI rate-limited (free tier)');
+          }
+          answer = text;
+        } catch (e) { lastErr = e; } finally { clearTimeout(timer); }
+      }
+      if (!answer) throw (lastErr || new Error('AI endpoint unavailable'));
+    }
+
+    if (!answer) return safeError(res, 502, 'AI_EMPTY', 'The AI returned an empty answer — try again');
+    res.json({ answer, source: key ? 'configured-provider' : 'free-fallback' });
+  } catch (err) {
+    return safeError(res, 502, 'AI_FAILED', err.message);
+  }
+});
+
 // ---- Recovery without a live order: verify by original tx hash alone ----
 // The browser keeps the original hash in localStorage; if the server's
 // in-memory order is gone (restart), "Check payment" falls back to this.
